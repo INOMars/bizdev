@@ -1,7 +1,11 @@
+var mapi = {
+  isReady: false,
+};
+
 // Maps are ready to use
 function initMap() {
-  console.log('Maps are ready');
-  var map = new google.maps.Map(document.getElementById('map'), {
+  // map to be used
+  mapi.map = new google.maps.Map(document.getElementById('map'), {
     zoom: 3,
     center: {
       lat: 58,
@@ -9,5 +13,10 @@ function initMap() {
     }
   });
 
+  // Geocoder converts address into lat/lon values
+  mapi.geocoder = new google.maps.Geocoder();
+
+  // Rock'n'roll
+  mapi.isReady = true;
 }
 
