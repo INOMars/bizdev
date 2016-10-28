@@ -1,5 +1,5 @@
-var mapi = {
-  isReady: false,
+var mapi = function() {
+  this.isReady = false;
 };
 
 // Maps are ready to use
