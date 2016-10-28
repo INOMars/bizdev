@@ -1,11 +1,15 @@
+var mapInstance;
+
 var mapi = function() {
-  this.isReady = false;
 };
 
 // Maps are ready to use
 function initMap() {
+  // Rock'n'roll
+  mapInstance = new mapi();
+
   // map to be used
-  mapi.map = new google.maps.Map(document.getElementById('map'), {
+  mapInstance.map = new google.maps.Map(document.getElementById('map'), {
     zoom: 3,
     center: {
       lat: 58,
@@ -14,10 +18,7 @@ function initMap() {
   });
 
   // Geocoder converts address into lat/lon values
-  mapi.geocoder = new google.maps.Geocoder();
-
-  // Rock'n'roll
-  mapi.isReady = true;
+  mapInstance.geocoder = new google.maps.Geocoder();
 }
 
 // Returns lon/lat for a given address
@@ -36,8 +37,9 @@ mapi.prototype.geocode = function(address, callback) {
 // Displays markers with clustering
 mapi.prototype.displayMarkers = function(regions) {
   var markers = [];
+  var self = this;
   for (var i = 0; i < regions.length; i++) {
-    this.geocode(regions[i], function(location, address) {
+    this.geocode(regions[i].title, function(location, address) {
       var mark = new google.maps.Marker({
         position: location,
         title: address,
@@ -48,7 +50,7 @@ mapi.prototype.displayMarkers = function(regions) {
       // Once we finished - display the markers
       if (markers.length == regions.length) {
         // Add a marker clusterer to manage the markers.
-        var markerCluster = new MarkerClusterer(map, markers, {
+        var markerCluster = new MarkerClusterer(self.map, markers, {
           imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'
         });
       }
