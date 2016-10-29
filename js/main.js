@@ -48,7 +48,9 @@ mapi.prototype.displayRegionMarkers = function(region, data) {
   var self = this;
     this.geocode(region, function(location, address) {
       var infowindow = new google.maps.InfoWindow({
-        content: "Companies: " + data[0].companies_count
+        content: "Companies: " + data[0].companies_count + 
+          "<br>Combined Revenue: " + data[0].revenue_sum +
+          "<br>Combined Profit: " + data[0].profit_sum
       });
 
       var mark = new google.maps.Marker({

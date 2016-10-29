@@ -41,7 +41,6 @@ API.prototype.search = function(callback) {
       self = this;
 
   $.getJSON({url: actionUrl}).done(function(data) {
-    console.log(data);
     mapInstance.displayRegionMarkers($("#regionField option:selected").text(), data)
   }).fail(function(){
     console.log('error');
