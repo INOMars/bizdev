@@ -2,7 +2,7 @@ var apiInstance;
 
 // API
 var API = function() {
-  this.serverUrl = "http://localhost/";
+  this.serverUrl = "http://localhost:4567/";
 };
 
 // Ping/pong
@@ -12,7 +12,7 @@ API.prototype.ping = function(callback) {
       options = {},
       self = this;
 
-  $.ajax(url: actionUrl).done(function() {
+  $.ajax({url: actionUrl}).done(function() {
     typeof callback === "function" && callback();
   }).fail(function(){
     console.log('error');
@@ -26,7 +26,22 @@ API.prototype.getRegions = function(callback) {
       options = {},
       self = this;
 
-  $.getJSON(url: actionUrl).done(function(data) {
+  $.getJSON({url: actionUrl}).done(function(data) {
+    typeof callback === "function" && callback(data);
+  }).fail(function(){
+    console.log('error');
+  });
+}
+
+// Returns list of regions
+API.prototype.search = function(callback) {
+  var path = "region/" + $('#regionField').val() + "/markets/" + $("#activityField").val(),
+      actionUrl = this.serverUrl + path,
+      options = {},
+      self = this;
+
+  $.getJSON({url: actionUrl}).done(function(data) {
+    console.log(data);
     typeof callback === "function" && callback(data);
   }).fail(function(){
     console.log('error');
@@ -34,4 +49,3 @@ API.prototype.getRegions = function(callback) {
 }
 
 apiInstance = new API();
-
