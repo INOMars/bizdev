@@ -19,6 +19,15 @@ function initMap() {
 
   // Geocoder converts address into lat/lon values
   mapInstance.geocoder = new google.maps.Geocoder();
+
+  apiInstance.getRegions(function (regions) {
+    for (var i=0; i < regions.length; i++) {
+      $("#regionField").append($('<option>', {
+          value: regions[i].code,
+          text: regions[i].name
+      }));
+    }
+  });
 }
 
 // Returns lon/lat for a given address
