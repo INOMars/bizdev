@@ -1,3 +1,5 @@
+var apiInstance;
+
 // API
 var API = function() {
   this.serverUrl = "http://localhost/";
@@ -30,4 +32,6 @@ API.prototype.getRegions = function(callback) {
     console.log('error');
   });
 }
+
+apiInstance = new API();
 
