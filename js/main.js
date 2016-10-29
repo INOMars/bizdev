@@ -43,12 +43,38 @@ mapi.prototype.geocode = function(address, callback) {
   });
 }
 
+mapi.prototype.displayRegionMarkers = function(region, data) {
+  var markers = [];
+  var self = this;
+    this.geocode(region, function(location, address) {
+      var infowindow = new google.maps.InfoWindow({
+        content: "Companies: " + data[0].companies_count
+      });
+
+      var mark = new google.maps.Marker({
+        position: location,
+        title: address,
+      });
+
+      google.maps.event.addListener(mark, 'click', function() {
+        infowindow.open(map,mark);
+      });
+
+      markers.push(mark);
+
+        // Once we finished - display the markers
+      var markerCluster = new MarkerClusterer(self.map, markers, {
+        imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'
+      });
+  });
+}
+
 // Displays markers with clustering
 mapi.prototype.displayMarkers = function(regions) {
   var markers = [];
   var self = this;
   for (var i = 0; i < regions.length; i++) {
-    this.geocode(regions[i].title, function(location, address) {
+    this.geocode(regions[i].name, function(location, address) {
       var mark = new google.maps.Marker({
         position: location,
         title: address,

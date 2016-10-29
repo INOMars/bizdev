@@ -42,7 +42,7 @@ API.prototype.search = function(callback) {
 
   $.getJSON({url: actionUrl}).done(function(data) {
     console.log(data);
-    typeof callback === "function" && callback(data);
+    mapInstance.displayRegionMarkers($("#regionField option:selected").text(), data)
   }).fail(function(){
     console.log('error');
   });
